@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UniversityAPI.Data;
+using UniversityAPI.Repository.IRepository;
+using UniversityAPI.Repository;
 
 namespace UniversityAPI
 {
@@ -31,6 +33,8 @@ namespace UniversityAPI
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddScoped<IUniversityRepository, UniversityRepository>();
             services.AddControllers();
         }
 
