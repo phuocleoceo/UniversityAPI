@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using UniversityAPI.Data;
 using UniversityAPI.Repository.IRepository;
 using UniversityAPI.Repository;
+using AutoMapper;
+using UniversityAPI.Mapper;
 
 namespace UniversityAPI
 {
@@ -35,6 +37,7 @@ namespace UniversityAPI
             });
 
             services.AddScoped<IUniversityRepository, UniversityRepository>();
+            services.AddAutoMapper(typeof(UniversityMapping));
             services.AddControllers();
         }
 
