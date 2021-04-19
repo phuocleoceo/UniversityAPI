@@ -2,5 +2,7 @@
 
 ## ORM : Entity Framework Core 
 
+## AutoMapper for two-way binding
+
 ## Developing
 

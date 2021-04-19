@@ -8,7 +8,7 @@ using UniversityAPI.Models;
 
 namespace UniversityAPI.Data
 {
-    public class APIContext:DbContext
+    public class APIContext : DbContext
     {
         public APIContext(DbContextOptions<APIContext> options) : base(options) { }
 
