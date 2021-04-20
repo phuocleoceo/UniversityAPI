@@ -46,7 +46,19 @@ namespace UniversityAPI
                                     new Microsoft.OpenApi.Models.OpenApiInfo()
                                     {
                                         Title = "University API",
-                                        Version = "1"
+                                        Version = "1",
+                                        Description = "PLC University API",
+                                        Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+                                        {
+                                            Email = "ht10082001@gmail.com",
+                                            Name = "phuocleoceo",
+                                            Url = new Uri("https://facebook.com/phuocleoceo")
+                                        },
+                                        License = new Microsoft.OpenApi.Models.OpenApiLicense()
+                                        {
+                                            Name = "phuocleoceo",
+                                            Url = new Uri("https://facebook.com/phuocleoceo")
+                                        }
                                     });
                 //Lay ten Assembly (Project) hien tai, chinh la ten cua file .xml
                 var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
