@@ -38,6 +38,15 @@ namespace UniversityAPI
 
             services.AddScoped<IUniversityRepository, UniversityRepository>();
             services.AddAutoMapper(typeof(UniversityMapping));
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("UniversityAPISpec",
+                                    new Microsoft.OpenApi.Models.OpenApiInfo()
+                                    {
+                                        Title = "University API",
+                                        Version = "1"
+                                    });
+            });
             services.AddControllers();
         }
 
@@ -51,6 +60,7 @@ namespace UniversityAPI
 
             app.UseHttpsRedirection();
 
+            app.UseSwagger();
             app.UseRouting();
 
             app.UseAuthorization();

@@ -75,7 +75,7 @@ namespace UniversityAPI.Controllers
         [HttpPatch("{id:int}", Name = "UpdateUniversity")]
         public IActionResult UpdateUniversity(int id, [FromBody] UniversityDTO universityDTO)
         {
-            if (universityDTO == null|| universityDTO.Id!=id)
+            if (universityDTO == null || universityDTO.Id != id)
             {
                 return BadRequest(ModelState);
             }
