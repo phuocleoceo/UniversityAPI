@@ -4,5 +4,7 @@
 
 ## AutoMapper for two-way binding
 
+## Swagger for API Documentation
+
 ## Developing
 
