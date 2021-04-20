@@ -16,6 +16,8 @@ using UniversityAPI.Repository.IRepository;
 using UniversityAPI.Repository;
 using AutoMapper;
 using UniversityAPI.Mapper;
+using System.Reflection;
+using System.IO;
 
 namespace UniversityAPI
 {
@@ -46,6 +48,11 @@ namespace UniversityAPI
                                         Title = "University API",
                                         Version = "1"
                                     });
+                //Lay ten Assembly (Project) hien tai, chinh la ten cua file .xml
+                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //Combine path cua project voi ten file xml
+                var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+                options.IncludeXmlComments(cmlCommentsFullPath);
             });
             services.AddControllers();
         }

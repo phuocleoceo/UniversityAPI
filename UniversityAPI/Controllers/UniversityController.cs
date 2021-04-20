@@ -15,7 +15,7 @@ namespace UniversityAPI.Controllers
     [ApiController]
     public class UniversityController : ControllerBase
     {
-        private IUniversityRepository _repo;
+        private readonly IUniversityRepository _repo;
         private readonly IMapper _mapper;
 
         public UniversityController(IUniversityRepository repo, IMapper mapper)
@@ -24,6 +24,10 @@ namespace UniversityAPI.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Get list all university
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetUniversitys()
         {
@@ -37,6 +41,11 @@ namespace UniversityAPI.Controllers
         }
 
         //{} => tham so , ? => khong bat buoc
+        /// <summary>
+        /// Get a university by its id
+        /// </summary>
+        /// <param name="id">The id of university that you want to get</param>
+        /// <returns></returns>
         [HttpGet("{id:int}", Name = "GetUniversity")]
         public IActionResult GetUniversity(int id)
         {
@@ -49,6 +58,11 @@ namespace UniversityAPI.Controllers
             return Ok(uniDTO);
         }
 
+        /// <summary>
+        /// Create a new university
+        /// </summary>
+        /// <param name="universityDTO">New university information</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult CreateUniversity([FromBody] UniversityDTO universityDTO)
         {
@@ -72,6 +86,12 @@ namespace UniversityAPI.Controllers
             return CreatedAtRoute("GetUniversity", new { id = uni.Id }, uni);
         }
 
+        /// <summary>
+        /// Update a university
+        /// </summary>
+        /// <param name="id">the id of university that you want to update</param>
+        /// <param name="universityDTO">new information for university</param>
+        /// <returns></returns>
         [HttpPatch("{id:int}", Name = "UpdateUniversity")]
         public IActionResult UpdateUniversity(int id, [FromBody] UniversityDTO universityDTO)
         {
@@ -88,6 +108,11 @@ namespace UniversityAPI.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete a university
+        /// </summary>
+        /// <param name="id">the id of university that you want to delete</param>
+        /// <returns></returns>
         [HttpDelete("{id:int}", Name = "DeleteUniversity")]
         public IActionResult DeleteUniversity(int id)
         {

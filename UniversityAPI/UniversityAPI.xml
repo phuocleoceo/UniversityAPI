@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UniversityAPI</name>
+    </assembly>
+    <members>
+        <member name="M:UniversityAPI.Controllers.UniversityController.GetUniversitys">
+            <summary>
+            Get list all university
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UniversityAPI.Controllers.UniversityController.GetUniversity(System.Int32)">
+            <summary>
+            Get a university by its id
+            </summary>
+            <param name="id">The id of university that you want to get</param>
+            <returns></returns>
+        </member>
+        <member name="M:UniversityAPI.Controllers.UniversityController.CreateUniversity(UniversityAPI.Models.DTO.UniversityDTO)">
+            <summary>
+            Create a new university
+            </summary>
+            <param name="universityDTO">New university information</param>
+            <returns></returns>
+        </member>
+        <member name="M:UniversityAPI.Controllers.UniversityController.UpdateUniversity(System.Int32,UniversityAPI.Models.DTO.UniversityDTO)">
+            <summary>
+            Update a university
+            </summary>
+            <param name="id">the id of university that you want to update</param>
+            <param name="universityDTO">new information for university</param>
+            <returns></returns>
+        </member>
+        <member name="M:UniversityAPI.Controllers.UniversityController.DeleteUniversity(System.Int32)">
+            <summary>
+            Delete a university
+            </summary>
+            <param name="id">the id of university that you want to delete</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
