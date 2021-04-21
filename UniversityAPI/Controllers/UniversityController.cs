@@ -13,6 +13,7 @@ namespace UniversityAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class UniversityController : ControllerBase
     {
         private readonly IUniversityRepository _repo;
@@ -29,6 +30,7 @@ namespace UniversityAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(200,Type =typeof(List<UniversityDTO>))]
         public IActionResult GetUniversitys()
         {
             var list = _repo.GetAll();
@@ -47,6 +49,9 @@ namespace UniversityAPI.Controllers
         /// <param name="id">The id of university that you want to get</param>
         /// <returns></returns>
         [HttpGet("{id:int}", Name = "GetUniversity")]
+        [ProducesResponseType(200, Type = typeof(UniversityDTO))]
+        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
         public IActionResult GetUniversity(int id)
         {
             var uni = _repo.GetById(id);
@@ -64,6 +69,10 @@ namespace UniversityAPI.Controllers
         /// <param name="universityDTO">New university information</param>
         /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(UniversityDTO))]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult CreateUniversity([FromBody] UniversityDTO universityDTO)
         {
             if (universityDTO == null)
@@ -93,6 +102,9 @@ namespace UniversityAPI.Controllers
         /// <param name="universityDTO">new information for university</param>
         /// <returns></returns>
         [HttpPatch("{id:int}", Name = "UpdateUniversity")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult UpdateUniversity(int id, [FromBody] UniversityDTO universityDTO)
         {
             if (universityDTO == null || universityDTO.Id != id)
@@ -114,6 +126,10 @@ namespace UniversityAPI.Controllers
         /// <param name="id">the id of university that you want to delete</param>
         /// <returns></returns>
         [HttpDelete("{id:int}", Name = "DeleteUniversity")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeleteUniversity(int id)
         {
             if (!_repo.UniversityExists(id))
