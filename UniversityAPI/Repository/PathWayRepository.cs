@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,12 +31,12 @@ namespace UniversityAPI.Repository
 
         public ICollection<PathWay> GetAll()
         {
-            return _db.PathWays.ToList();
+            return _db.PathWays.Include(c => c.University).ToList();
         }
 
         public PathWay GetById(int pathWayId)
         {
-            return _db.PathWays.FirstOrDefault(c => c.Id == pathWayId);
+            return _db.PathWays.Include(c => c.University).FirstOrDefault(c => c.Id == pathWayId);
         }
 
         public bool PathWayExists(string Name)
@@ -58,6 +59,12 @@ namespace UniversityAPI.Repository
         public bool Save()
         {
             return _db.SaveChanges() >= 0 ? true : false;
+        }
+
+        public ICollection<PathWay> GetPathWayAroundUniversity(int universityId)
+        {
+            return _db.PathWays.Include(c => c.University)
+                        .Where(c => c.UniversityId == universityId).ToList();
         }
     }
 }

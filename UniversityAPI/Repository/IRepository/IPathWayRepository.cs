@@ -10,6 +10,8 @@ namespace UniversityAPI.Repository.IRepository
     {
         ICollection<PathWay> GetAll();
 
+        ICollection<PathWay> GetPathWayAroundUniversity(int universityId);
+
         PathWay GetById(int pathWayId);
 
         bool PathWayExists(string Name);
