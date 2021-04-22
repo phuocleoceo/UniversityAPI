@@ -15,9 +15,11 @@ namespace UniversityAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UniversityConfiguration());
+            modelBuilder.ApplyConfiguration(new PathWayConfiguration());
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<University> Universities { get; set; }
+        public DbSet<PathWay> PathWays { get; set; }
     }
 }
