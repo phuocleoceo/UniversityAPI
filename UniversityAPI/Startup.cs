@@ -39,7 +39,9 @@ namespace UniversityAPI
             });
 
             services.AddScoped<IUniversityRepository, UniversityRepository>();
+            services.AddScoped<IPathWayRepository, PathWayRepository>();
             services.AddAutoMapper(typeof(UniversityMapping));
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("UniversityAPISpec",
