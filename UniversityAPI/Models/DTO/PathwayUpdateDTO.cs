@@ -3,7 +3,7 @@ using static UniversityAPI.Models.PathWay;
 
 namespace UniversityAPI.Models.DTO
 {
-    public class PathwayUpsertDTO
+    public class PathwayUpdateDTO
     {
         public int Id { get; set; }
 

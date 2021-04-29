@@ -66,25 +66,25 @@ namespace UniversityAPI.Controllers
         /// <summary>
         /// Create a new pathway
         /// </summary>
-        /// <param name="pathwayUpsertDTO">New pathway information</param>
+        /// <param name="pathwayCreateDTO">New pathway information</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(PathWayDTO))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult CreatePathWay([FromBody] PathwayUpsertDTO pathwayUpsertDTO)
+        public IActionResult CreatePathWay([FromBody] PathwayCreateDTO pathwayCreateDTO)
         { 
-            if (pathwayUpsertDTO == null)
+            if (pathwayCreateDTO == null)
             {
                 return BadRequest(ModelState);
             }
-            if (_repo.PathWayExists(pathwayUpsertDTO.Name))
+            if (_repo.PathWayExists(pathwayCreateDTO.Name))
             {
                 ModelState.AddModelError("Error !", "PathWay Exists");
                 return StatusCode(404, ModelState);
             }
-            var pw = _mapper.Map<PathWay>(pathwayUpsertDTO);
+            var pw = _mapper.Map<PathWay>(pathwayCreateDTO);
             if (!_repo.CreatePathWay(pw))
             {
                 ModelState.AddModelError("Error !", $"Something went wrong when creating the record {pw.Name}");
@@ -105,7 +105,7 @@ namespace UniversityAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult UpdatePathWay(int id, [FromBody] PathwayUpsertDTO pathwayUpsertDTO)
+        public IActionResult UpdatePathWay(int id, [FromBody] PathwayUpdateDTO pathwayUpsertDTO)
         {
             if (pathwayUpsertDTO == null || pathwayUpsertDTO.Id != id)
             {

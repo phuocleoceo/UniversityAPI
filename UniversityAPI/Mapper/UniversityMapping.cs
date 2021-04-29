@@ -10,7 +10,8 @@ namespace UniversityAPI.Mapper
         {
             CreateMap<University, UniversityDTO>().ReverseMap();
             CreateMap<PathWay, PathWayDTO>().ReverseMap();
-            CreateMap<PathWay, PathwayUpsertDTO>().ReverseMap();
+            CreateMap<PathWay, PathwayUpdateDTO>().ReverseMap();
+            CreateMap<PathWay, PathwayCreateDTO>().ReverseMap();
             //ReverseMap cho phep TwoWay Binding giua 2 cai tren chu khong chi 1 chieu
         }
     }

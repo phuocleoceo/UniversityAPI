@@ -17,14 +17,14 @@
             <param name="id">The id of pathway that you want to get</param>
             <returns></returns>
         </member>
-        <member name="M:UniversityAPI.Controllers.PathWayController.CreatePathWay(UniversityAPI.Models.DTO.PathwayUpsertDTO)">
+        <member name="M:UniversityAPI.Controllers.PathWayController.CreatePathWay(UniversityAPI.Models.DTO.PathwayCreateDTO)">
             <summary>
             Create a new pathway
             </summary>
-            <param name="pathwayUpsertDTO">New pathway information</param>
+            <param name="pathwayCreateDTO">New pathway information</param>
             <returns></returns>
         </member>
-        <member name="M:UniversityAPI.Controllers.PathWayController.UpdatePathWay(System.Int32,UniversityAPI.Models.DTO.PathwayUpsertDTO)">
+        <member name="M:UniversityAPI.Controllers.PathWayController.UpdatePathWay(System.Int32,UniversityAPI.Models.DTO.PathwayUpdateDTO)">
             <summary>
             Update a pathway
             </summary>
