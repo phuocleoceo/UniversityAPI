@@ -66,25 +66,25 @@ namespace UniversityAPI.Controllers
         /// <summary>
         /// Create a new pathway
         /// </summary>
-        /// <param name="pathWayDTO">New pathway information</param>
+        /// <param name="pathwayUpsertDTO">New pathway information</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(PathWayDTO))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult CreatePathWay([FromBody] PathWayDTO pathWayDTO)
-        {
-            if (pathWayDTO == null)
+        public IActionResult CreatePathWay([FromBody] PathwayUpsertDTO pathwayUpsertDTO)
+        { 
+            if (pathwayUpsertDTO == null)
             {
                 return BadRequest(ModelState);
             }
-            if (_repo.PathWayExists(pathWayDTO.Name))
+            if (_repo.PathWayExists(pathwayUpsertDTO.Name))
             {
                 ModelState.AddModelError("Error !", "PathWay Exists");
                 return StatusCode(404, ModelState);
             }
-            var pw = _mapper.Map<PathWay>(pathWayDTO);
+            var pw = _mapper.Map<PathWay>(pathwayUpsertDTO);
             if (!_repo.CreatePathWay(pw))
             {
                 ModelState.AddModelError("Error !", $"Something went wrong when creating the record {pw.Name}");
@@ -99,19 +99,19 @@ namespace UniversityAPI.Controllers
         /// Update a pathway
         /// </summary>
         /// <param name="id">the id of pathway that you want to update</param>
-        /// <param name="pathWayDTO">new information for pathway</param>
+        /// <param name="pathwayUpsertDTO">new information for pathway</param>
         /// <returns></returns>
         [HttpPatch("{id:int}", Name = "UpdatePathWay")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult UpdatePathWay(int id, [FromBody] PathWayDTO pathWayDTO)
+        public IActionResult UpdatePathWay(int id, [FromBody] PathwayUpsertDTO pathwayUpsertDTO)
         {
-            if (pathWayDTO == null || pathWayDTO.Id != id)
+            if (pathwayUpsertDTO == null || pathwayUpsertDTO.Id != id)
             {
                 return BadRequest(ModelState);
             }
-            var pw = _mapper.Map<PathWay>(pathWayDTO);
+            var pw = _mapper.Map<PathWay>(pathwayUpsertDTO);
             if (!_repo.UpdatePathWay(pw))
             {
                 ModelState.AddModelError("Error !", $"Something went wrong when updating the record {pw.Name}");

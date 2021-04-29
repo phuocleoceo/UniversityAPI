@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using static UniversityAPI.Models.PathWay;
 
 namespace UniversityAPI.Models.DTO
 {
-    public class PathWayDTO
+    public class PathwayUpsertDTO
     {
         public int Id { get; set; }
 
@@ -18,7 +17,5 @@ namespace UniversityAPI.Models.DTO
 
         [Required]
         public int UniversityId { get; set; }
-
-        public UniversityDTO University { get; set; }
     }
 }
