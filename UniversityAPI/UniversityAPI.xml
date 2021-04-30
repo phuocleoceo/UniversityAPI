@@ -17,6 +17,13 @@
             <param name="id">The id of pathway that you want to get</param>
             <returns></returns>
         </member>
+        <member name="M:UniversityAPI.Controllers.PathWayController.GetPathWayAroundUniversity(System.Int32)">
+            <summary>
+            Get pathway around a university
+            </summary>
+            <param name="university_id">The id of university</param>
+            <returns></returns>
+        </member>
         <member name="M:UniversityAPI.Controllers.PathWayController.CreatePathWay(UniversityAPI.Models.DTO.PathwayCreateDTO)">
             <summary>
             Create a new pathway

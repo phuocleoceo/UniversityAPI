@@ -64,6 +64,30 @@ namespace UniversityAPI.Controllers
         }
 
         /// <summary>
+        /// Get pathway around a university
+        /// </summary>
+        /// <param name="university_id">The id of university</param>
+        /// <returns></returns>
+        [HttpGet("[action]/{university_id:int}", Name = "GetPathWayAroundUniversity")]
+        [ProducesResponseType(200, Type = typeof(List<PathWayDTO>))]
+        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetPathWayAroundUniversity(int university_id)
+        {
+            var pwList = _repo.GetPathWayAroundUniversity(university_id);
+            if (pwList == null)
+            {
+                return NotFound();
+            }
+            var pwDTO = new List<PathWayDTO>();
+            foreach (var pw in pwList)
+            {
+                pwDTO.Add(_mapper.Map<PathWayDTO>(pw));
+            }
+            return Ok(pwDTO);
+        }
+
+        /// <summary>
         /// Create a new pathway
         /// </summary>
         /// <param name="pathwayCreateDTO">New pathway information</param>
