@@ -16,10 +16,12 @@ namespace UniversityAPI.Data
         {
             modelBuilder.ApplyConfiguration(new UniversityConfiguration());
             modelBuilder.ApplyConfiguration(new PathWayConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<University> Universities { get; set; }
         public DbSet<PathWay> PathWays { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

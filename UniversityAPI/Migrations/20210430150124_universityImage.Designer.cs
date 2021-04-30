@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityAPI.Data;
 
 namespace UniversityAPI.Migrations
 {
     [DbContext(typeof(APIContext))]
-    partial class APIContextModelSnapshot : ModelSnapshot
+    [Migration("20210430150124_universityImage")]
+    partial class universityImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +54,7 @@ namespace UniversityAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 4, 30, 22, 43, 58, 202, DateTimeKind.Local).AddTicks(9451),
+                            DateCreated = new DateTime(2021, 4, 30, 22, 1, 23, 607, DateTimeKind.Local).AddTicks(6295),
                             Difficulty = 1,
                             Distance = 1.0,
                             Name = "Nguyen Luong Bang",
@@ -61,7 +63,7 @@ namespace UniversityAPI.Migrations
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2021, 4, 30, 22, 43, 58, 203, DateTimeKind.Local).AddTicks(9963),
+                            DateCreated = new DateTime(2021, 4, 30, 22, 1, 23, 608, DateTimeKind.Local).AddTicks(7660),
                             Difficulty = 0,
                             Distance = 2.0,
                             Name = "Ngu Hanh Son",
@@ -70,7 +72,7 @@ namespace UniversityAPI.Migrations
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2021, 4, 30, 22, 43, 58, 203, DateTimeKind.Local).AddTicks(9995),
+                            DateCreated = new DateTime(2021, 4, 30, 22, 1, 23, 608, DateTimeKind.Local).AddTicks(7695),
                             Difficulty = 2,
                             Distance = 1.5,
                             Name = "Luong Nhu Hoc",
@@ -163,36 +165,6 @@ namespace UniversityAPI.Migrations
                             Address = "Đà Nẵng",
                             Established = new DateTime(2020, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "CNTT Việt-Hàn Đà Nẵng"
-                        });
-                });
-
-            modelBuilder.Entity("UniversityAPI.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Password = "1",
-                            Role = "Admin",
-                            UserName = "phuoc"
                         });
                 });
 

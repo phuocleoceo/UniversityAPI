@@ -20,6 +20,8 @@ namespace UniversityAPI.Models
         [Required]
         public string Address { get; set; }
 
+        public byte[] Picture { get; set; }
+
         public DateTime Established { get; set; }
     }
 }
