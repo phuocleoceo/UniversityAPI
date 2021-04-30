@@ -40,6 +40,7 @@ namespace UniversityAPI
 
             services.AddScoped<IUniversityRepository, UniversityRepository>();
             services.AddScoped<IPathWayRepository, PathWayRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(typeof(UniversityMapping));
 
             services.AddSwaggerGen(options =>
@@ -68,6 +69,9 @@ namespace UniversityAPI
                 var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
                 options.IncludeXmlComments(cmlCommentsFullPath);
             });
+
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
             services.AddControllers();
         }
 
