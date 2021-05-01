@@ -77,7 +77,7 @@ namespace UniversityAPI
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization
-                                  Enter 'Bearer' and then your token in the text input below   
+                                  Enter 'Bearer ' and then your token in the text input below   
                                   Example: Bearer 123456789",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
