@@ -6,7 +6,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using UniversityAPI.Data;
 using UniversityAPI.Models;
 using UniversityAPI.Repository.IRepository;
@@ -51,6 +50,7 @@ namespace UniversityAPI.Repository
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
+            user.Password = "";
             return user;
         }
 
