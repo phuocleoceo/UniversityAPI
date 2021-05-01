@@ -25,7 +25,7 @@ namespace UniversityAPI.Controllers
 
         [AllowAnonymous]  //Cho phep vuot qua Authorize cua Controller
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody] User model)
+        public IActionResult Authenticate([FromBody] AuthenticationModel model)
         {
             var user = _repo.Authenticate(model.UserName, model.Password);
             if (user == null)
@@ -37,7 +37,7 @@ namespace UniversityAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody] User model)
+        public IActionResult Register([FromBody] AuthenticationModel model)
         {
             bool UserNameIsUnique = _repo.IsUniqueUser(model.UserName);
             if (!UserNameIsUnique)
