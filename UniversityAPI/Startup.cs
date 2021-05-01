@@ -18,6 +18,9 @@ using AutoMapper;
 using UniversityAPI.Mapper;
 using System.Reflection;
 using System.IO;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace UniversityAPI
 {
@@ -72,6 +75,25 @@ namespace UniversityAPI
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
+            var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings").Get<AppSettings>().Secret);
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(c =>
+            {
+                c.RequireHttpsMetadata = false;
+                c.SaveToken = true;
+                c.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
             services.AddControllers();
         }
 
@@ -94,6 +116,7 @@ namespace UniversityAPI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
