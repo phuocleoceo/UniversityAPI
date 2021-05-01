@@ -24,7 +24,12 @@ namespace UniversityAPI.Repository
 
         public bool IsUniqueUser(string username)
         {
-            throw new NotImplementedException();
+            var user = _db.Users.SingleOrDefault(c => c.UserName == username);
+            if (user == null)
+            {
+                return true;
+            }
+            return false;
         }
 
         public User Authenticate(string username, string password)
@@ -56,7 +61,15 @@ namespace UniversityAPI.Repository
 
         public User Register(string username, string password)
         {
-            throw new NotImplementedException();
+            User user = new User()
+            {
+                UserName = username,
+                Password = password
+            };
+            _db.Users.Add(user);
+            _db.SaveChanges();
+            user.Password = "";
+            return user;
         }
     }
 }

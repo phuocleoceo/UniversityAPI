@@ -34,5 +34,22 @@ namespace UniversityAPI.Controllers
             }
             return Ok(user);
         }
+
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] User model)
+        {
+            bool UserNameIsUnique = _repo.IsUniqueUser(model.UserName);
+            if (!UserNameIsUnique)
+            {
+                return BadRequest(new { message = "Username is exists" });
+            }
+            var user = _repo.Register(model.UserName, model.Password);
+            if (user == null)
+            {
+                return BadRequest(new { message = "Error while registering" });
+            }
+            return Ok();
+        }
     }
 }
