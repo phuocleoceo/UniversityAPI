@@ -68,9 +68,9 @@ namespace UniversityAPI
                     }
                 });
                 //Lay ten Assembly (Project) hien tai, chinh la ten cua file .xml
-                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                string xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 //Combine path cua project voi ten file xml
-                var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+                string cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
                 options.IncludeXmlComments(cmlCommentsFullPath);
 
                 //Add BearerJWT 
@@ -106,7 +106,7 @@ namespace UniversityAPI
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
-            var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings").Get<AppSettings>().Secret);
+            byte[] key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings").Get<AppSettings>().Secret);
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

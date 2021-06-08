@@ -25,6 +25,7 @@ namespace UniversityAPI.Repository
 
         public bool IsUniqueUser(string username)
         {
+            //Single() must the only one, First() can be many obj
             var user = _db.Users.SingleOrDefault(c => c.UserName == username);
             if (user == null)
             {
@@ -57,7 +58,7 @@ namespace UniversityAPI.Repository
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
-            user.Password = "";
+            user.Password = "";  //Not Save() so it's not affect to database
             return user;
         }
 
