@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UniversityMVC.Repository;
+using UniversityMVC.Repository.IRepository;
 
 namespace UniversityMVC
 {
@@ -23,9 +25,10 @@ namespace UniversityMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUniversityRepository, UniversityRepository>();
+            services.AddScoped<IPathWayRepository, PathWayRepository>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddHttpClient();
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
