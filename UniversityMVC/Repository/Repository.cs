@@ -17,14 +17,30 @@ namespace UniversityMVC.Repository
             _httpClientFactory = httpClientFactory;
         }
 
-        public Task<IEnumerable<T>> GetAllAsync(string url)
+        public async Task<IEnumerable<T>> GetAllAsync(string url)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.SendAsync(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<IEnumerable<T>>(jsonString);
+            }
+            return null;
         }
 
-        public Task<T> GetAsync(string url, int Id)
+        public async Task<T> GetAsync(string url, int Id)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.SendAsync(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(jsonString);
+            }
+            return null;
         }
 
         public async Task<bool> CreateAsync(string url, T obj)
@@ -53,14 +69,45 @@ namespace UniversityMVC.Repository
             }
         }
 
-        public Task<bool> UpdateAsync(string url, T obj)
+        public async Task<bool> UpdateAsync(string url, T obj)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Patch, url);
+            if (obj != null)
+            {
+                request.Content = new StringContent(
+                        JsonConvert.SerializeObject(obj),
+                        Encoding.UTF8,
+                        "application/json");
+            }
+            else
+            {
+                return false;
+            }
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.SendAsync(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public Task<bool> DeleteAsync(string url, int Id)
+        public async Task<bool> DeleteAsync(string url, int Id)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Delete, url + Id);
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.SendAsync(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
