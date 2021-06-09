@@ -7,7 +7,7 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "/university/GetAllUniversity",
+            "url": "/university/getall",
             "type": "GET",
             "datatype": "json"
         },
@@ -21,12 +21,41 @@ function loadDataTable() {
                          <a href="/university/upsert/${data}" class='btn btn-success text-white'
                          style='cursor:pointer;'> <i class='far fa-edit'></i></a>
                         &nbsp;
-                        <a onclick=Delete("/university/delete/${data})" class='btn btn-danger text-white'
+                        <a onclick=Delete("/university/delete/${data}") class='btn btn-danger text-white'
                          style='cursor:pointer;'> <i class='far fa-trash-alt'></i></a>
                             </div>
                     `;
                 }, "width": "30%"
             }
         ]
+    });
+}
+
+function Delete(_url) {
+    //Sweet Alert
+    swal({
+        title: "Confirm delete this university ?",
+        text: "It will never be able to restore !",
+        icon: "warning",
+        button: true,
+        showCancelButton: true,
+        dangerMode: true
+    }).then((obj) => {
+        if (obj) {
+            $.ajax({
+                type: 'DELETE',
+                url: _url,
+                success: function (data) {
+                    //success and message from Delete Controller
+                    if (data.success) {
+                        toastr.success(data.message);
+                        dataTable.ajax.reload();
+                    }
+                    else {
+                        toastr.error(data.message);
+                    }
+                }
+            });
+        }
     });
 }

@@ -62,12 +62,18 @@ namespace UniversityMVC.Controllers
                     }
                     obj.Picture = pic;
                 }
+                else if (obj.Id == 0)
+                {
+                    // If we're creating but not choose any Picture
+                    obj.Picture = null;
+                }
                 else
                 {
-                    //Reuse old picture
+                    //Reuse old picture if we're updating and not choose any Picture
                     var objFromDb = await _db.GetAsync(_url, obj.Id);
                     obj.Picture = objFromDb.Picture;
                 }
+
                 //Create
                 if (obj.Id == 0)
                 {
@@ -86,9 +92,19 @@ namespace UniversityMVC.Controllers
             }
         }
         #region API Request
-        public async Task<IActionResult> GetAllUniversity()
+        public async Task<IActionResult> GetAll()
         {
             return Json(new { data = await _db.GetAllAsync(_url) });
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (await _db.DeleteAsync(_url, id))
+            {
+                return Json(new { success = true, message = "Delete Successfully" });
+            }
+            return Json(new { success = false, message = "Delete Failure" });
         }
         #endregion
     }
