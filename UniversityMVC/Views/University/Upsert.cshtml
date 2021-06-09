@@ -1,0 +1,123 @@
+﻿@model University
+@{
+    ViewData["Title"] = "University";
+    string TITLE = "Create University";
+}
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @if (Model.Id != 0)
+    {
+        //new University() has Id = default(int) = 0
+        <input type="hidden" asp-for="Id" />
+        TITLE = "Edit University";
+    }
+    <div class="row px-2 mx-2 backgroundWhite border">
+
+        <div class="col-12 p-3">
+            <h2 class="text-primary">@TITLE</h2>
+        </div>
+        <div class="col-8">
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Name"></label>
+                </div>
+
+                <div class="col-8">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Address"></label>
+                </div>
+
+                <div class="col-8">
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Abbreviation"></label>
+                </div>
+
+                <div class="col-8">
+                    <input asp-for="Abbreviation" class="form-control" />
+                    <span asp-validation-for="Abbreviation" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Established"></label>
+                </div>
+
+                <div class="col-8">
+                    @{
+                        string dateEst = "";
+                        if (Model.Id != 0)
+                        {
+                            dateEst = Model.Established.ToShortDateString();
+                        }
+                    }
+                    <input id="datepicker" value="@dateEst" type="text" asp-for="Established" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Picture"></label>
+                </div>
+
+                <div class="col-8">
+                    <input type="file" asp-for="Picture" id="projectImage" name="files" multiple class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4 offset-4">
+                    <button type="submit" class="btn btn-primary form-control">
+                        @(Model.Id != 0 ? "Update" : "Create")
+                    </button>
+                </div>
+                <div class="col-4">
+                    <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 text-right" style="width:250px;">
+            @if (Model.Picture != null)
+            {
+                var base64 = Convert.ToBase64String(Model.Picture);
+                string imgsrc = "";
+                if (string.IsNullOrEmpty(base64))
+                {
+                    imgsrc = "https://via.placeholder.com/150";
+                }
+                else
+                {
+                    imgsrc = $"data:image/jpg;base64,{base64}";
+                }
+                <img src="@imgsrc" width="100%" />
+            }
+        </div>
+    </div>
+
+</form>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('#datepicker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1800:2020"
+            });
+        })
+    </script>
+}

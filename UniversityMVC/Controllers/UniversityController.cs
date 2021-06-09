@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using UniversityMVC.Models;
@@ -20,12 +21,75 @@ namespace UniversityMVC.Controllers
 
         public IActionResult Index()
         {
-            return View(new University { });
+            return View();
         }
 
+        public async Task<IActionResult> Upsert(int? id)
+        {
+            University obj = new University();
+            // Insert
+            if (id == null)
+            {
+                return View(obj);
+            }
+            // Update
+            obj = await _db.GetAsync(_url, id.GetValueOrDefault());
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            return View(obj);
+        }
+
+        //Here we only use GET and POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Upsert(University obj)
+        {
+            if (ModelState.IsValid)
+            {
+                var files = HttpContext.Request.Form.Files;
+                if (files.Count > 0)
+                {
+                    byte[] pic = null;
+                    using (var fs = files[0].OpenReadStream())
+                    {
+                        using (var ms = new MemoryStream())
+                        {
+                            fs.CopyTo(ms);
+                            pic = ms.ToArray();
+                        }
+                    }
+                    obj.Picture = pic;
+                }
+                else
+                {
+                    //Reuse old picture
+                    var objFromDb = await _db.GetAsync(_url, obj.Id);
+                    obj.Picture = objFromDb.Picture;
+                }
+                //Create
+                if (obj.Id == 0)
+                {
+                    await _db.CreateAsync(_url, obj);
+                }
+                //Update
+                else
+                {
+                    await _db.UpdateAsync(_url + obj.Id, obj);
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View(obj);
+            }
+        }
+        #region API Request
         public async Task<IActionResult> GetAllUniversity()
         {
             return Json(new { data = await _db.GetAllAsync(_url) });
         }
+        #endregion
     }
 }

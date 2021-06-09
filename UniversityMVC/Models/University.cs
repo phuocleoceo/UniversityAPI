@@ -13,6 +13,7 @@ namespace UniversityMVC.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Abbreviation { get; set; }
 
         [Required]
