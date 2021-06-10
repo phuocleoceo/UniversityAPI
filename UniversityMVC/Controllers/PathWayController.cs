@@ -40,7 +40,8 @@ namespace UniversityMVC.Controllers
                 {
                     Text = c.Name,
                     Value = c.Id.ToString()
-                })
+                }),
+                PathWay=new PathWay()  //Has Id = 0 to check in Index View
             };
             // Insert
             if (id == null)
@@ -77,7 +78,18 @@ namespace UniversityMVC.Controllers
             }
             else
             {
-                return View(obj);
+                // Fix the validation not working when Create with 0 information added
+                IEnumerable<University> listUni = await _dbUNI.GetAllAsync(_urlUNI);
+                PathWayVM pwVM = new PathWayVM()
+                {
+                    UniversityList = listUni.Select(c => new SelectListItem
+                    {
+                        Text = c.Name,
+                        Value = c.Id.ToString()
+                    }),
+                    PathWay = obj.PathWay
+                };
+                return View(pwVM);
             }
         }
         #region API Request

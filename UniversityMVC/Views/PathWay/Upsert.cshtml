@@ -1,5 +1,82 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PathWayVM
 @{
+    ViewData["Title"] = "PathWay";
+    string TITLE = "Create PathWay";
 }
+
+<form method="post" asp-action="Upsert">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @if (Model.PathWay.Id != 0)
+    {
+        //new University() has Id = default(int) = 0
+        <input type="hidden" asp-for="PathWay.Id" />
+        TITLE = "Edit PathWay";
+    }
+    <div class="row px-2 mx-2 backgroundWhite border">
+
+        <div class="col-12 p-3">
+            <h2 class="text-primary">@TITLE</h2>
+        </div>
+        <div class="col-8">
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="PathWay.Name"></label>
+                </div>
+
+                <div class="col-8">
+                    <input asp-for="PathWay.Name" class="form-control" />
+                    <span asp-validation-for="PathWay.Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="PathWay.Distance"></label>
+                </div>
+
+                <div class="col-8">
+                    <input asp-for="PathWay.Distance" class="form-control" />
+                    <span asp-validation-for="PathWay.Distance" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="PathWay.Difficulty"></label>
+                </div>
+
+                <div class="col-8">
+                    <select asp-for="PathWay.Difficulty"
+                            asp-items="Html.GetEnumSelectList<PathWay.DifficultLevel>()"
+                            class="form-control">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">University Name</div>
+
+                <div class="col-8">
+                    @Html.DropDownListFor(m => m.PathWay.UniversityId,
+                                          Model.UniversityList,
+                                          "-Please select a university",
+                                          new { @class = "form-control" })
+
+                    <span asp-validation-for="PathWay.UniversityId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4 offset-4">
+                    <button type="submit" class="btn btn-primary form-control">
+                        @(Model.PathWay.Id != 0 ? "Update" : "Create")
+                    </button>
+                </div>
+                <div class="col-4">
+                    <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
