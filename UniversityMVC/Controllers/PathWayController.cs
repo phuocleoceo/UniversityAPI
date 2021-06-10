@@ -85,7 +85,7 @@ namespace UniversityMVC.Controllers
         {
             return Json(new { data = await _dbPW.GetAllAsync(_urlPW) });
         }
-
+        
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
