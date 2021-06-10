@@ -13,7 +13,7 @@ namespace UniversityMVC.Repository.IRepository
 
         Task<bool> CreateAsync(string url, T obj);
 
-        Task<bool> UpdateAsync(string url, T obj);
+        Task<bool> UpdateAsync(string url, int id, T obj);
 
         Task<bool> DeleteAsync(string url, int Id);
     }

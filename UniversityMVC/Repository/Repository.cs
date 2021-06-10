@@ -69,9 +69,9 @@ namespace UniversityMVC.Repository
             }
         }
 
-        public async Task<bool> UpdateAsync(string url, T obj)
+        public async Task<bool> UpdateAsync(string url, int id, T obj)
         {
-            var request = new HttpRequestMessage(HttpMethod.Patch, url);
+            var request = new HttpRequestMessage(HttpMethod.Patch, url + id);
             if (obj != null)
             {
                 request.Content = new StringContent(

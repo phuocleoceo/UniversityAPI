@@ -82,7 +82,7 @@ namespace UniversityMVC.Controllers
                 //Update
                 else
                 {
-                    await _db.UpdateAsync(_url + obj.Id, obj);
+                    await _db.UpdateAsync(_url, obj.Id, obj);
                 }
                 return RedirectToAction(nameof(Index));
             }
