@@ -3,25 +3,26 @@
 $(document).ready(function () {
     loadDataTable();
 });
-// Model : IEnumerable<UniversityDTO>
+// Model : IEnumerable<PathWayDTO>
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "/university/getall",
+            "url": "/pathway/getall",
             "type": "GET",
             "datatype": "json"
         },
         "columns": [
-            { "data": "name", "width": "50%" },
-            { "data": "address", "width": "20%" },
+            { "data": "university.name", "width": "30%" },
+            { "data": "name", "width": "25%" },
+            { "data": "distance", "width": "15%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `<div class="text-center">
-                         <a href="/university/upsert/${data}" class='btn btn-success text-white'
+                         <a href="/pathway/upsert/${data}" class='btn btn-success text-white'
                          style='cursor:pointer;'> <i class='far fa-edit'></i></a>
                         &nbsp;
-                        <a onclick=Delete("/university/delete/${data}") class='btn btn-danger text-white'
+                        <a onclick=Delete("/pathway/delete/${data}") class='btn btn-danger text-white'
                          style='cursor:pointer;'> <i class='far fa-trash-alt'></i></a>
                             </div>
                     `;
