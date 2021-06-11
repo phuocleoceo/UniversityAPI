@@ -57,6 +57,7 @@ namespace UniversityMVC.Controllers
                 return View();
             }
             HttpContext.Session.SetString("JWToken", userLogin.Token);
+            HttpContext.Session.SetString("CurrentUserName", userLogin.UserName);
             return RedirectToAction(nameof(Index));
         }
 
@@ -83,6 +84,7 @@ namespace UniversityMVC.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.SetString("JWToken", "");
+            HttpContext.Session.SetString("CurrentUserName", "");
             return RedirectToAction(nameof(Index));
         }
 
