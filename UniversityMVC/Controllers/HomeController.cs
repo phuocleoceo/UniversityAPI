@@ -32,10 +32,11 @@ namespace UniversityMVC.Controllers
 
         public async Task<IActionResult> Index()
         {
+            string token = HttpContext.Session.GetString("JWToken");
             HomeVM list = new HomeVM()
             {
-                UniversityList = await _dbUNI.GetAllAsync(SD.UniversityAPIPath),
-                PathWayList = await _dbPW.GetAllAsync(SD.PathWayAPIPath)
+                UniversityList = await _dbUNI.GetAllAsync(SD.UniversityAPIPath, token),
+                PathWayList = await _dbPW.GetAllAsync(SD.PathWayAPIPath, token)
             };
             return View(list);
         }
@@ -79,8 +80,6 @@ namespace UniversityMVC.Controllers
             return RedirectToAction(nameof(Login));
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
             HttpContext.Session.SetString("JWToken", "");
