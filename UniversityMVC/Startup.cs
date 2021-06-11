@@ -27,6 +27,8 @@ namespace UniversityMVC
         {
             services.AddScoped<IUniversityRepository, UniversityRepository>();
             services.AddScoped<IPathWayRepository, PathWayRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddHttpClient();
             // Add Session for Login
