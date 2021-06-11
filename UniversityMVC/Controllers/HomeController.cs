@@ -63,7 +63,6 @@ namespace UniversityMVC.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            // Login has already User Model
             return View();
         }
 
