@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using UniversityMVC.Models;
 using UniversityMVC.Models.ViewModel;
@@ -57,6 +60,13 @@ namespace UniversityMVC.Controllers
             {
                 return View();
             }
+
+            var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+            identity.AddClaim(new Claim(ClaimTypes.Name, userLogin.UserName));
+            identity.AddClaim(new Claim(ClaimTypes.Role, userLogin.Role));
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
             HttpContext.Session.SetString("JWToken", userLogin.Token);
             HttpContext.Session.SetString("CurrentUserName", userLogin.UserName);
             return RedirectToAction(nameof(Index));
@@ -80,11 +90,17 @@ namespace UniversityMVC.Controllers
             return RedirectToAction(nameof(Login));
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync();
             HttpContext.Session.SetString("JWToken", "");
             HttpContext.Session.SetString("CurrentUserName", "");
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
