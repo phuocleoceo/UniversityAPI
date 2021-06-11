@@ -1,23 +1,59 @@
-﻿<header>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpAcc
+@{
+    string CurrentToken = httpAcc.HttpContext.Session.GetString("JWToken");
+    string CurrentUserName = httpAcc.HttpContext.Session.GetString("CurrentUserName");
+}
+<header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PLC</a>
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <i class="fas fa-university"></i>
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                @*RIGHT SIDE HEADER*@
+                <ul class="navbar-nav">
+                    @if (!string.IsNullOrWhiteSpace(CurrentToken))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark">Hello @CurrentUserName!</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Logout">Logout</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Register">Register</a>
+                        </li>
+                    }
+                </ul>
+
+                @*LEFT SIDE HEADER*@
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="University" asp-action="Index">University</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="PathWay" asp-action="Index">PathWay</a>
-                    </li>
+                    @if (!string.IsNullOrWhiteSpace(CurrentToken))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="University" asp-action="Index">University</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="PathWay" asp-action="Index">PathWay</a>
+                        </li>
+                    }
                 </ul>
+
             </div>
         </div>
     </nav>

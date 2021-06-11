@@ -41,7 +41,7 @@ namespace UniversityMVC.Controllers
                     Text = c.Name,
                     Value = c.Id.ToString()
                 }),
-                PathWay=new PathWay()  //Has Id = 0 to check in Index View
+                PathWay = new PathWay()  //Has Id = 0 to check in Index View
             };
             // Insert
             if (id == null)
@@ -50,7 +50,7 @@ namespace UniversityMVC.Controllers
             }
             // Update
             pwVM.PathWay = await _dbPW.GetAsync(_urlPW, id.GetValueOrDefault());
-            if (pwVM.PathWay == null) 
+            if (pwVM.PathWay == null)
             {
                 return NotFound();
             }
@@ -97,7 +97,7 @@ namespace UniversityMVC.Controllers
         {
             return Json(new { data = await _dbPW.GetAllAsync(_urlPW) });
         }
-        
+
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {

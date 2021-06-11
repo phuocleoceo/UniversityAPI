@@ -36,7 +36,8 @@ namespace UniversityAPI.Repository
 
         public User Authenticate(string username, string password)
         {
-            var user = _db.Users.SingleOrDefault(c => c.UserName == username && c.Password == password);
+            string PassWordMD5 = password.GetMD5();
+            var user = _db.Users.SingleOrDefault(c => c.UserName == username && c.Password == PassWordMD5);
             //User not found
             if (user == null)
             {
@@ -67,7 +68,7 @@ namespace UniversityAPI.Repository
             User user = new User()
             {
                 UserName = username,
-                Password = password,
+                Password = password.GetMD5(),
                 Role = SD.Role_Admin
             };
             _db.Users.Add(user);

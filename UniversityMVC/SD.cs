@@ -10,5 +10,6 @@ namespace UniversityMVC
         public static string APIBaseUrl = "https://localhost:44344/";
         public static string UniversityAPIPath = APIBaseUrl + "api/university/";
         public static string PathWayAPIPath = APIBaseUrl + "api/pathway/";
+        public static string UserAPIPath = APIBaseUrl + "api/user/";
     }
 }
