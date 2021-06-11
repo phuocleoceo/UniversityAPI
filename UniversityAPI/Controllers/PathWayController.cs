@@ -13,7 +13,7 @@ using UniversityAPI.Utility;
 
 namespace UniversityAPI.Controllers
 {
-    //[Authorize(Roles = SD.Role_Admin)]
+    [Authorize(Roles = SD.Role_Admin)]
     [Route("api/[controller]")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -32,6 +32,7 @@ namespace UniversityAPI.Controllers
         /// Get list all pathway
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(List<PathWayDTO>))]
         public IActionResult GetPathWays()

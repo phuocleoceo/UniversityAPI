@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,9 +9,11 @@ using System.Threading.Tasks;
 using UniversityAPI.Models;
 using UniversityAPI.Models.DTO;
 using UniversityAPI.Repository.IRepository;
+using UniversityAPI.Utility;
 
 namespace UniversityAPI.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
     [Route("api/[controller]")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -29,6 +32,7 @@ namespace UniversityAPI.Controllers
         /// Get list all university
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(200,Type =typeof(List<UniversityDTO>))]
         public IActionResult GetUniversitys()

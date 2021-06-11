@@ -14,9 +14,16 @@ namespace UniversityAPI.Data.Configuration
                 new User
                 {
                     Id = 1,
-                    UserName = "phuoc",
-                    Password = "1",
+                    UserName = "admin",
+                    Password = "c4ca4238a0b923820dcc509a6f75849b",
                     Role = "Admin"
+                },
+                new User
+                {
+                    Id = 2,
+                    UserName = "guest",
+                    Password = "c4ca4238a0b923820dcc509a6f75849b",
+                    Role = "Guest"
                 }
             );
         }
