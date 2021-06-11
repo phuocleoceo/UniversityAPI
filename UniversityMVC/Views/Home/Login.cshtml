@@ -3,8 +3,34 @@
     ViewData["Title"] = "Login";
 }
 <h1>Login</h1>
-<form method="post">
-    <input asp-for="UserName" type="text" placeholder="Type your username..." />
-    <input asp-for="Password" type="text" placeholder="Type your password..." />
-    <button type="submit" value="Submit">Login</button>
-</form>
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="account" method="post">
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="UserName"></label>
+                    <input asp-for="UserName" class="form-control" type="text" placeholder="Type your username..." />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" type="text" placeholder="Type your password..." />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <a id="forgot-password" asp-page="">Forgot your password?</a>
+                    </p>
+                    <p>
+                        <a asp-controller="Home" asp-action="Register">Register as a new user</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
