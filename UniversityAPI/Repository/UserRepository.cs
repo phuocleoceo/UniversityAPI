@@ -68,9 +68,16 @@ namespace UniversityAPI.Repository
             User user = new User()
             {
                 UserName = username,
-                Password = password.GetMD5(),
-                Role = SD.Role_Guest
+                Password = password.GetMD5(),                
             };
+            if (_db.Users.Count() == 0)
+            {
+                user.Role = SD.Role_Admin;
+            }
+            else
+            {
+                user.Role = SD.Role_Guest;
+            }
             _db.Users.Add(user);
             _db.SaveChanges();
             user.Password = "";

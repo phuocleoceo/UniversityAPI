@@ -13,6 +13,7 @@ using UniversityAPI.Utility;
 
 namespace UniversityAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -32,6 +33,7 @@ namespace UniversityAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(200,Type =typeof(List<UniversityDTO>))]
         public IActionResult GetUniversitys()
         {
