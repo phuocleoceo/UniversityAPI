@@ -9,9 +9,11 @@ using UniversityMVC.Models.ViewModel;
 using UniversityMVC.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UniversityMVC.Controllers
 {
+    [Authorize]
     public class PathWayController : Controller
     {
         private readonly IPathWayRepository _dbPW;
@@ -31,6 +33,7 @@ namespace UniversityMVC.Controllers
             return View();
         }
 
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> Upsert(int? id)
         {
             string token = HttpContext.Session.GetString("JWToken");
@@ -103,6 +106,7 @@ namespace UniversityMVC.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> Delete(int id)
         {
             string token = HttpContext.Session.GetString("JWToken");

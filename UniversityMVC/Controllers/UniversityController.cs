@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using UniversityMVC.Repository.IRepository;
 
 namespace UniversityMVC.Controllers
 {
+    [Authorize]
     public class UniversityController : Controller
     {
         private readonly IUniversityRepository _db;
@@ -25,6 +27,7 @@ namespace UniversityMVC.Controllers
             return View();
         }
 
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> Upsert(int? id)
         {
             string token = HttpContext.Session.GetString("JWToken");
@@ -102,6 +105,7 @@ namespace UniversityMVC.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> Delete(int id)
         {
             string token = HttpContext.Session.GetString("JWToken");
