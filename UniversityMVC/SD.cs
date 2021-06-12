@@ -11,5 +11,8 @@ namespace UniversityMVC
         public static string UniversityAPIPath = APIBaseUrl + "api/university/";
         public static string PathWayAPIPath = APIBaseUrl + "api/pathway/";
         public static string UserAPIPath = APIBaseUrl + "api/user/";
+
+        public const string Role_Admin = "Admin";
+        public const string Role_Guest = "Guest";
     }
 }

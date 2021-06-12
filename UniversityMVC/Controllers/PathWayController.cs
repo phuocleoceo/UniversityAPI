@@ -8,9 +8,12 @@ using UniversityMVC.Models;
 using UniversityMVC.Models.ViewModel;
 using UniversityMVC.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UniversityMVC.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
     public class PathWayController : Controller
     {
         private readonly IPathWayRepository _dbPW;
@@ -32,7 +35,8 @@ namespace UniversityMVC.Controllers
 
         public async Task<IActionResult> Upsert(int? id)
         {
-            IEnumerable<University> listUni = await _dbUNI.GetAllAsync(_urlUNI);
+            string token = HttpContext.Session.GetString("JWToken");
+            IEnumerable<University> listUni = await _dbUNI.GetAllAsync(_urlUNI, token);
 
             PathWayVM pwVM = new PathWayVM()
             {
@@ -49,7 +53,7 @@ namespace UniversityMVC.Controllers
                 return View(pwVM);
             }
             // Update
-            pwVM.PathWay = await _dbPW.GetAsync(_urlPW, id.GetValueOrDefault());
+            pwVM.PathWay = await _dbPW.GetAsync(_urlPW, id.GetValueOrDefault(), token);
             if (pwVM.PathWay == null)
             {
                 return NotFound();
@@ -62,24 +66,26 @@ namespace UniversityMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Upsert(PathWayVM obj)
         {
+            string token = HttpContext.Session.GetString("JWToken");
             if (ModelState.IsValid)
             {
                 //Create
                 if (obj.PathWay.Id == 0)
                 {
-                    await _dbPW.CreateAsync(_urlPW, obj.PathWay);
+                    await _dbPW.CreateAsync(_urlPW, obj.PathWay, token);
                 }
                 //Update
                 else
                 {
-                    await _dbPW.UpdateAsync(_urlPW, obj.PathWay.Id, obj.PathWay);
+                    await _dbPW.UpdateAsync(_urlPW, obj.PathWay.Id, obj.PathWay, token);
                 }
+                TempData["Alert"] = "Modify Successfully !";
                 return RedirectToAction(nameof(Index));
             }
             else
             {
                 // Fix the validation not working when Create with 0 information added
-                IEnumerable<University> listUni = await _dbUNI.GetAllAsync(_urlUNI);
+                IEnumerable<University> listUni = await _dbUNI.GetAllAsync(_urlUNI, token);
                 PathWayVM pwVM = new PathWayVM()
                 {
                     UniversityList = listUni.Select(c => new SelectListItem
@@ -95,13 +101,15 @@ namespace UniversityMVC.Controllers
         #region API Request
         public async Task<IActionResult> GetAll()
         {
-            return Json(new { data = await _dbPW.GetAllAsync(_urlPW) });
+            string token = HttpContext.Session.GetString("JWToken");
+            return Json(new { data = await _dbPW.GetAllAsync(_urlPW, token) });
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            if (await _dbPW.DeleteAsync(_urlPW, id))
+            string token = HttpContext.Session.GetString("JWToken");
+            if (await _dbPW.DeleteAsync(_urlPW, id, token))
             {
                 return Json(new { success = true, message = "Delete Successfully" });
             }

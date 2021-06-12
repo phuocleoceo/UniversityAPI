@@ -43,7 +43,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-                    @if (!string.IsNullOrWhiteSpace(CurrentToken))
+                    @if (!string.IsNullOrWhiteSpace(CurrentToken) && (User.IsInRole(SD.Role_Admin)))
                     {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="University" asp-action="Index">University</a>

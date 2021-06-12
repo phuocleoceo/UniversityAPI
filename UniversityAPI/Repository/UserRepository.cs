@@ -69,7 +69,7 @@ namespace UniversityAPI.Repository
             {
                 UserName = username,
                 Password = password.GetMD5(),
-                Role = SD.Role_Admin
+                Role = SD.Role_Guest
             };
             _db.Users.Add(user);
             _db.SaveChanges();
