@@ -58,6 +58,7 @@ namespace UniversityMVC.Controllers
             User userLogin = await _dbUSER.LoginAsync(SD.UserAPIPath + "authenticate/", user);
             if (userLogin.Token == null)
             {
+                TempData["Alert"] = "Login Failure ! Invalid Username or Password !";
                 return View();
             }
 
@@ -86,6 +87,7 @@ namespace UniversityMVC.Controllers
             bool result = await _dbUSER.RegisterAsync(SD.UserAPIPath + "register/", user);
             if (!result)
             {
+                TempData["Alert"] = "Cannot Register ! This Username is Exists !";
                 return View();
             }
             TempData["Alert"] = "Register Successfully !";
@@ -97,6 +99,7 @@ namespace UniversityMVC.Controllers
             await HttpContext.SignOutAsync();
             HttpContext.Session.SetString("JWToken", "");
             HttpContext.Session.SetString("CurrentUserName", "");
+            TempData["Alert"] = "Logout Successfully !";
             return RedirectToAction(nameof(Index));
         }
 
