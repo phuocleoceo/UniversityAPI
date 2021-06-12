@@ -69,6 +69,7 @@ namespace UniversityMVC.Controllers
 
             HttpContext.Session.SetString("JWToken", userLogin.Token);
             HttpContext.Session.SetString("CurrentUserName", userLogin.UserName);
+            TempData["Alert"] = "Welcome " + userLogin.UserName;
             return RedirectToAction(nameof(Index));
         }
 
@@ -87,6 +88,7 @@ namespace UniversityMVC.Controllers
             {
                 return View();
             }
+            TempData["Alert"] = "Register Successfully !";
             return RedirectToAction(nameof(Login));
         }
 

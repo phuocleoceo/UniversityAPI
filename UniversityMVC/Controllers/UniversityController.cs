@@ -90,6 +90,7 @@ namespace UniversityMVC.Controllers
                 {
                     await _db.UpdateAsync(_url, obj.Id, obj, token);
                 }
+                TempData["Alert"] = "Modify Successfully !";
                 return RedirectToAction(nameof(Index));
             }
             else

@@ -80,6 +80,7 @@ namespace UniversityMVC.Controllers
                 {
                     await _dbPW.UpdateAsync(_urlPW, obj.PathWay.Id, obj.PathWay, token);
                 }
+                TempData["Alert"] = "Modify Successfully !";
                 return RedirectToAction(nameof(Index));
             }
             else
