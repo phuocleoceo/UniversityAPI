@@ -69,7 +69,6 @@ namespace UniversityMVC.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
             HttpContext.Session.SetString("JWToken", userLogin.Token);
-            HttpContext.Session.SetString("CurrentUserName", userLogin.UserName);
             TempData["Alert"] = "Welcome " + userLogin.UserName;
             return RedirectToAction(nameof(Index));
         }
@@ -98,7 +97,6 @@ namespace UniversityMVC.Controllers
         {
             await HttpContext.SignOutAsync();
             HttpContext.Session.SetString("JWToken", "");
-            HttpContext.Session.SetString("CurrentUserName", "");
             TempData["Alert"] = "Logout Successfully !";
             return RedirectToAction(nameof(Index));
         }
